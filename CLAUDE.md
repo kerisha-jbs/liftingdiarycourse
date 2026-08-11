@@ -6,7 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Important: always check /docs first
 
-Before generating any code, first check the relevant doc file(s) in the `/docs` directory for guidance, conventions, and constraints specific to this project. Read the applicable doc(s) before writing code — do not skip this step even for small changes.
+Before generating any code, first check the relevant doc file(s) in the `/docs` directory for guidance, conventions, and constraints specific to this project. Read the applicable doc(s) before writing code — do not skip this step even for small changes:
+
+- /docs/ui.md
+- /docs/data-fetching.md
 
 ## Project state
 
