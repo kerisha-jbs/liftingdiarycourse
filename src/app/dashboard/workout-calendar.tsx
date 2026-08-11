@@ -1,15 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { format } from "date-fns";
+import { format, formatDistanceStrict } from "date-fns";
 import { Dumbbell } from "lucide-react";
 
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import type { getWorkoutsForCurrentUserByDate } from "@/data/workouts";
 
 type Workout = Awaited<ReturnType<typeof getWorkoutsForCurrentUserByDate>>[number];
+type WorkoutExercise = Workout["workoutExercises"][number];
+
+function isExerciseCompleted(workoutExercise: WorkoutExercise) {
+  return (
+    workoutExercise.sets.length > 0 &&
+    workoutExercise.sets.every((set) => set.completed)
+  );
+}
 
 export function WorkoutCalendar({
   workouts,
@@ -58,17 +67,33 @@ export function WorkoutCalendar({
                     <span>{workout.name ?? "Workout"}</span>
                     <span className="text-sm font-medium text-muted-foreground">
                       {format(workout.startedAt, "h:mm a")}
+                      {workout.completedAt &&
+                        ` · ${formatDistanceStrict(workout.startedAt, workout.completedAt)}`}
                     </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-2">
-                    {workout.workoutExercises.map((workoutExercise) => (
-                      <Badge key={workoutExercise.id} variant="secondary">
-                        {workoutExercise.exercise?.name}
-                      </Badge>
-                    ))}
-                  </div>
+                  {workout.workoutExercises.map((workoutExercise, index) => (
+                    <div key={workoutExercise.id} className="flex flex-col gap-2">
+                      {index > 0 && <Separator />}
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-sm font-medium">
+                          {workoutExercise.exercise?.name}
+                        </span>
+                        <Badge
+                          variant={
+                            isExerciseCompleted(workoutExercise)
+                              ? "default"
+                              : "outline"
+                          }
+                        >
+                          {isExerciseCompleted(workoutExercise)
+                            ? "Completed"
+                            : "Incomplete"}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             ))}
