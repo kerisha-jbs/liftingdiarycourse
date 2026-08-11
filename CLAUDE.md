@@ -4,6 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+## Important: always check /docs first
+
+Before generating any code, first check the relevant doc file(s) in the `/docs` directory for guidance, conventions, and constraints specific to this project. Read the applicable doc(s) before writing code — do not skip this step even for small changes.
+
 ## Project state
 
 This is a freshly bootstrapped Next.js app (App Router) with no custom features built yet — `src/app/page.tsx` is still the default `create-next-app` starter. Treat this as a greenfield project.
