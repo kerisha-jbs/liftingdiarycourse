@@ -30,7 +30,7 @@ const createSetSchema = z.object({
   workoutExerciseId: z.guid(),
   setNumber: z.number().int().positive(),
   weight: z.string().trim().min(1),
-  reps: z.number().int().positive(),
+  reps: z.number().int().nonnegative(),
 });
 
 type CreateSetInput = z.infer<typeof createSetSchema>;
@@ -44,7 +44,7 @@ export async function createSet(input: CreateSetInput) {
 const updateSetSchema = z.object({
   setId: z.guid(),
   weight: z.string().trim().min(1),
-  reps: z.number().int().positive(),
+  reps: z.number().int().nonnegative(),
   completed: z.boolean(),
 });
 
