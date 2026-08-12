@@ -127,6 +127,14 @@ function ExerciseCard({ workoutExercise }: { workoutExercise: WorkoutExercise })
       <span className="text-sm font-medium">{workoutExercise.exercise?.name}</span>
 
       <div className="flex flex-col gap-2">
+        {workoutExercise.sets.length > 0 && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="w-6">Set</span>
+            <span className="w-20">Weight</span>
+            <span className="w-16">Reps</span>
+            <span className="w-4 text-center">Done</span>
+          </div>
+        )}
         {workoutExercise.sets.map((set) => (
           <SetRow key={set.id} set={set} />
         ))}
