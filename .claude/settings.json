@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/update-claude-md-docs.sh 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
