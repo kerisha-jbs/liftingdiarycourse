@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { endOfDay, startOfDay } from "date-fns";
 
 import { db } from "@/db";
+import { workoutExercises, workouts } from "@/db/schema";
 
 export async function getWorkoutsForCurrentUser() {
   const { userId } = await auth();
@@ -35,6 +36,39 @@ export async function getWorkoutsForCurrentUser() {
       },
     },
   });
+}
+
+export async function createWorkoutForCurrentUser(data: {
+  name: string | null;
+  startedAt: Date;
+  exerciseIds: string[];
+}) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Not authenticated");
+  }
+
+  const [workout] = await db
+    .insert(workouts)
+    .values({
+      userId,
+      name: data.name,
+      startedAt: data.startedAt,
+    })
+    .returning();
+
+  if (data.exerciseIds.length > 0) {
+    await db.insert(workoutExercises).values(
+      data.exerciseIds.map((exerciseId, index) => ({
+        workoutId: workout.id,
+        exerciseId,
+        order: index,
+      })),
+    );
+  }
+
+  return workout;
 }
 
 export async function getWorkoutsForCurrentUserByDate(date: Date) {
