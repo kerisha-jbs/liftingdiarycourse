@@ -36,3 +36,5 @@ There is no test runner configured yet.
 ## Important: Next.js 16 breaking changes
 
 Per `AGENTS.md`, this Next.js version has breaking API/convention changes vs. training data. Before writing any Next.js code (routing, data fetching, config, server/client components, etc.), read the relevant guide under `node_modules/next/dist/docs/` (`01-app/`, `02-pages/`, `03-architecture/`) — do not assume older Next.js patterns apply.
+
+## test
