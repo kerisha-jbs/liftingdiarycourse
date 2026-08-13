@@ -9,7 +9,17 @@
             "command": "bash .claude/hooks/update-claude-md-docs.sh 2>/dev/null || true"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/remove-claude-md-docs.sh 2>/dev/null || true"
+          }
+        ]
       }
     ]
-  }
+  },
+  "worktree": {"bgIsolation": "none"}
 }

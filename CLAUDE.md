@@ -12,6 +12,7 @@ Before generating any code, first check the relevant doc file(s) in the `/docs` 
 - /docs/data-fetching.md
 - /docs/auth.md
 - /docs/data-mutations.md
+- /docs/routing.md
 
 ## Project state
 
